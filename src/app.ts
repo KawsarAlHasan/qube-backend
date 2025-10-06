@@ -2,8 +2,8 @@ import cors from "cors";
 import express, { Request, Response } from "express";
 import path from "path";
 import { StatusCodes } from "http-status-codes";
-// import globalErrorHandler from './app/middlewares/globalErrorHandler';
-// import router from './routes';
+import globalErrorHandler from "./app/middlewares/globalErrorHandler";
+import router from "./routes";
 const app = express();
 
 //body parser
@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true })); // To handle URL-encoded data
 app.use("/public", express.static(path.join(__dirname, "../public")));
 
 //router
-// app.use('/api/v1', router);
+app.use('/api/v1', router);
 
 //live response
 app.get("/", (req: Request, res: Response) => {
@@ -27,7 +27,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 //global error handle
-// app.use(globalErrorHandler);
+app.use(globalErrorHandler);
 
 //handle not found route;
 app.use((req, res) => {
